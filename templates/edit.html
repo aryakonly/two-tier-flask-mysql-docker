@@ -133,20 +133,60 @@
 
         <label>Unit</label>
         <select name="unit" required>
-          {% for u in ['kg', 'g', 'piece', 'dozen', 'litre', 'pack'] %}
+          <option value="kg" {% if product.unit="" ="kg" %}selected{% endif %}>
+            kg
+          </option>
+          <option value="g" {% if product.unit="" ="g" %}selected{% endif %}>
+            g
+          </option>
           <option
-            value="{{ u }}"
+            value="piece"
             {%
             if
-            u=""
-            ="product.unit"
+            product.unit=""
+            ="piece"
             %}selected{%
             endif
             %}
           >
-            {{ u }}
+            piece
           </option>
-          {% endfor %}
+          <option
+            value="dozen"
+            {%
+            if
+            product.unit=""
+            ="dozen"
+            %}selected{%
+            endif
+            %}
+          >
+            dozen
+          </option>
+          <option
+            value="litre"
+            {%
+            if
+            product.unit=""
+            ="litre"
+            %}selected{%
+            endif
+            %}
+          >
+            litre
+          </option>
+          <option
+            value="pack"
+            {%
+            if
+            product.unit=""
+            ="pack"
+            %}selected{%
+            endif
+            %}
+          >
+            pack
+          </option>
         </select>
 
         <label>Description (optional)</label>
