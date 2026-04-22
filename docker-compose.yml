@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: grocery_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: grocerydb
+    ports:
+      - "3306:3306"
+    volumes:
+      - grocery_data:/var/lib/mysql
+
+  web:
+    build: .
+    container_name: grocery_flask
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      MYSQL_HOST: db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root123
+      MYSQL_DATABASE: grocerydb
+    depends_on:
+      - db
+
+volumes:
+  grocery_data:
