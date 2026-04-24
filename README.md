@@ -141,7 +141,7 @@ def get_db():
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/aryakonly/grocery-app.git
+git clone https://github.com/aryakonly/two-tier-flask-mysql-docker.git
 cd grocery-app
 
 # 2. Build and start both containers
