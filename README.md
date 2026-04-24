@@ -240,6 +240,9 @@ CREATE TABLE products (
 ### ➕ Add Product
 ![Add](screenshots/add.png)
 
+### ✏️ edit Product
+![Edit](screenshots/edit.png)
+
 ### 🗄 MySQL Database
 ![Database](screenshots/database.png)
 
