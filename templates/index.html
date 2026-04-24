@@ -1,142 +1,348 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
     <title>🛒 Fresh Grocery Store</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
     <style>
+      :root {
+        --green: #1a7a4a;
+        --green-light: #e8f5ee;
+        --green-mid: #2eab68;
+        --orange: #f97316;
+        --pink: #db2777;
+        --yellow: #f59e0b;
+        --dark: #0f1f14;
+        --gray: #6b7280;
+        --white: #ffffff;
+        --bg: #f5faf6;
+        --card: #ffffff;
+        --border: #d1e9db;
+      }
+
       * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
       }
+
       body {
-        font-family: Arial, sans-serif;
-        background: #f0fdf4;
-        color: #333;
+        font-family: "DM Sans", sans-serif;
+        background: var(--bg);
+        color: var(--dark);
+        min-height: 100vh;
       }
 
+      /* HEADER */
       header {
-        background: #16a34a;
-        color: white;
-        padding: 20px 30px;
+        background: var(--dark);
+        padding: 0 40px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-      }
-      header h1 {
-        font-size: 26px;
-      }
-      header a.btn {
-        background: white;
-        color: #16a34a;
-        padding: 8px 18px;
-        border-radius: 6px;
-        text-decoration: none;
-        font-weight: bold;
+        height: 72px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
       }
 
-      .filters {
-        padding: 16px 30px;
+      .logo {
+        font-family: "Playfair Display", serif;
+        font-size: 26px;
+        color: var(--white);
+        letter-spacing: -0.5px;
+      }
+
+      .logo span {
+        color: var(--green-mid);
+      }
+
+      .btn-add {
+        background: var(--green-mid);
+        color: white;
+        padding: 10px 22px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        letter-spacing: 0.3px;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .btn-add:hover {
+        background: var(--green);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 15px rgba(46, 171, 104, 0.4);
+      }
+
+      /* HERO BANNER */
+      .hero {
+        background: linear-gradient(
+          135deg,
+          var(--dark) 0%,
+          #1a3d25 60%,
+          #0f2b18 100%
+        );
+        padding: 50px 40px;
+        color: white;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        right: -10%;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(
+          circle,
+          rgba(46, 171, 104, 0.15) 0%,
+          transparent 70%
+        );
+        border-radius: 50%;
+      }
+      .hero h2 {
+        font-family: "Playfair Display", serif;
+        font-size: 38px;
+        line-height: 1.2;
+        margin-bottom: 8px;
+      }
+      .hero p {
+        color: #9dc9b0;
+        font-size: 15px;
+      }
+      .hero-stats {
+        display: flex;
+        gap: 30px;
+        margin-top: 24px;
+      }
+      .stat {
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 12px 20px;
+      }
+      .stat-num {
+        font-family: "Playfair Display", serif;
+        font-size: 24px;
+        color: var(--green-mid);
+      }
+      .stat-label {
+        font-size: 12px;
+        color: #9dc9b0;
+        margin-top: 2px;
+      }
+
+      /* FILTER TABS */
+      .filter-bar {
         background: white;
-        border-bottom: 1px solid #ddd;
+        padding: 14px 40px;
         display: flex;
         gap: 10px;
+        border-bottom: 1px solid var(--border);
+        box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
       }
-      .filters a {
-        padding: 6px 16px;
-        border-radius: 20px;
+      .filter-bar a {
+        padding: 8px 20px;
+        border-radius: 50px;
         text-decoration: none;
-        background: #e5e7eb;
-        color: #333;
-        font-size: 14px;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--gray);
+        background: var(--bg);
+        border: 1.5px solid var(--border);
+        transition: all 0.2s;
       }
-      .filters a.active {
-        background: #16a34a;
+      .filter-bar a:hover {
+        border-color: var(--green-mid);
+        color: var(--green);
+      }
+      .filter-bar a.active {
+        background: var(--dark);
         color: white;
+        border-color: var(--dark);
       }
 
+      /* MAIN CONTENT */
       .container {
-        padding: 24px 30px;
+        padding: 32px 40px;
       }
 
-      .category-title {
-        font-size: 20px;
-        font-weight: bold;
-        margin: 20px 0 10px;
-        padding-left: 10px;
-        border-left: 4px solid #16a34a;
+      /* TABLE */
+      .table-wrap {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+        border: 1px solid var(--border);
       }
 
       table {
         width: 100%;
         border-collapse: collapse;
-        background: white;
-        border-radius: 8px;
-        overflow: hidden;
-        margin-bottom: 20px;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+      }
+
+      thead tr {
+        background: var(--dark);
       }
       th {
-        background: #16a34a;
-        color: white;
-        padding: 12px 14px;
+        padding: 14px 18px;
         text-align: left;
-      }
-      td {
-        padding: 10px 14px;
-        border-bottom: 1px solid #f0f0f0;
-      }
-      tr:hover {
-        background: #f9fafb;
+        font-size: 11px;
+        font-weight: 600;
+        color: #9dc9b0;
+        letter-spacing: 1px;
+        text-transform: uppercase;
       }
 
+      tbody tr {
+        border-bottom: 1px solid #f0f7f3;
+        transition: background 0.15s;
+      }
+      tbody tr:last-child {
+        border-bottom: none;
+      }
+      tbody tr:hover {
+        background: #f8fffe;
+      }
+
+      td {
+        padding: 14px 18px;
+        font-size: 14px;
+        vertical-align: middle;
+      }
+
+      .product-name {
+        font-weight: 600;
+        font-size: 15px;
+        color: var(--dark);
+      }
+
+      .price {
+        font-weight: 700;
+        font-size: 15px;
+        color: var(--green);
+      }
+
+      /* BADGES */
       .badge {
-        display: inline-block;
-        padding: 3px 10px;
-        border-radius: 12px;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 12px;
+        border-radius: 50px;
         font-size: 12px;
-        font-weight: bold;
+        font-weight: 600;
       }
       .badge-fruits {
-        background: #fef3c7;
+        background: #fff7e6;
         color: #d97706;
+        border: 1px solid #fde68a;
       }
       .badge-vegetables {
-        background: #dcfce7;
-        color: #16a34a;
+        background: #e8f5ee;
+        color: #166534;
+        border: 1px solid #bbf7d0;
       }
       .badge-bakery {
-        background: #fce7f3;
-        color: #db2777;
+        background: #fdf2f8;
+        color: #9d174d;
+        border: 1px solid #fbcfe8;
       }
 
-      .actions a {
+      /* ACTION BUTTONS */
+      .btn-edit,
+      .btn-del {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 6px 14px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
         text-decoration: none;
-        margin-right: 8px;
-        font-size: 14px;
+        transition: all 0.2s;
       }
-      .edit {
+      .btn-edit {
+        background: #eff6ff;
         color: #2563eb;
+        border: 1px solid #bfdbfe;
+        margin-right: 6px;
       }
-      .del {
+      .btn-edit:hover {
+        background: #2563eb;
+        color: white;
+      }
+      .btn-del {
+        background: #fff1f2;
         color: #dc2626;
+        border: 1px solid #fecaca;
+      }
+      .btn-del:hover {
+        background: #dc2626;
+        color: white;
       }
 
+      /* EMPTY STATE */
       .empty {
         text-align: center;
-        padding: 40px;
-        color: #888;
-        background: white;
-        border-radius: 8px;
+        padding: 70px 20px;
+        color: var(--gray);
+      }
+      .empty-icon {
+        font-size: 60px;
+        margin-bottom: 16px;
+      }
+      .empty h3 {
+        font-size: 20px;
+        color: var(--dark);
+        margin-bottom: 8px;
+      }
+      .empty a {
+        color: var(--green);
+        font-weight: 600;
+      }
+
+      /* FOOTER */
+      footer {
+        text-align: center;
+        padding: 24px;
+        color: var(--gray);
+        font-size: 13px;
+        border-top: 1px solid var(--border);
+        margin-top: 40px;
       }
     </style>
   </head>
   <body>
     <header>
-      <h1>🛒 Fresh Grocery Store</h1>
-      <a class="btn" href="/add">+ Add Product</a>
+      <div class="logo">🌿 Fresh<span>Market</span></div>
+      <a class="btn-add" href="/add">＋ Add Product</a>
     </header>
 
-    <div class="filters">
+    <div class="hero">
+      <h2>Your Fresh Grocery<br />Inventory</h2>
+      <p>Manage fruits, vegetables and bakery products in one place.</p>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">{{ products | length }}</div>
+          <div class="stat-label">Total Products</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Categories</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="filter-bar">
       <a
         href="/?category=All"
         class="{% if selected == 'All' %}active{% endif %}"
@@ -161,48 +367,60 @@
 
     <div class="container">
       {% if products %}
-      <table>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Category</th>
-          <th>Price</th>
-          <th>Quantity</th>
-          <th>Unit</th>
-          <th>Description</th>
-          <th>Actions</th>
-        </tr>
-        {% for p in products %}
-        <tr>
-          <td>{{ p.id }}</td>
-          <td><b>{{ p.name }}</b></td>
-          <td>
-            <span class="badge badge-{{ p.category | lower }}">
-              {% if p.category == 'Fruits' %}🍎{% elif p.category ==
-              'Vegetables' %}🥦{% else %}🍞{% endif %} {{ p.category }}
-            </span>
-          </td>
-          <td>₹{{ p.price }}</td>
-          <td>{{ p.quantity }}</td>
-          <td>{{ p.unit }}</td>
-          <td>{{ p.description or '—' }}</td>
-          <td class="actions">
-            <a class="edit" href="/edit/{{ p.id }}">✏️ Edit</a>
-            <a
-              class="del"
-              href="/delete/{{ p.id }}"
-              onclick="return confirm('Delete {{ p.name }}?')"
-              >🗑 Delete</a
-            >
-          </td>
-        </tr>
-        {% endfor %}
-      </table>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Product</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Qty</th>
+              <th>Unit</th>
+              <th>Description</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for p in products %}
+            <tr>
+              <td style="color: #9ca3af; font-size: 13px">{{ p.id }}</td>
+              <td><span class="product-name">{{ p.name }}</span></td>
+              <td>
+                <span class="badge badge-{{ p.category | lower }}">
+                  {% if p.category == 'Fruits' %}🍎{% elif p.category ==
+                  'Vegetables' %}🥦{% else %}🍞{% endif %} {{ p.category }}
+                </span>
+              </td>
+              <td><span class="price">₹{{ p.price }}</span></td>
+              <td>{{ p.quantity }}</td>
+              <td style="color: #6b7280">{{ p.unit }}</td>
+              <td style="color: #6b7280; font-size: 13px">
+                {{ p.description or '—' }}
+              </td>
+              <td>
+                <a class="btn-edit" href="/edit/{{ p.id }}">✏️ Edit</a>
+                <a
+                  class="btn-del"
+                  href="/delete/{{ p.id }}"
+                  onclick="return confirm('Delete {{ p.name }}?')"
+                  >🗑 Delete</a
+                >
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
       {% else %}
       <div class="empty">
-        <p>No products found. <a href="/add">Add your first product!</a></p>
+        <div class="empty-icon">🛒</div>
+        <h3>No products yet</h3>
+        <p>Start by <a href="/add">adding your first product</a></p>
       </div>
       {% endif %}
     </div>
+
+    <footer>🌿 FreshMarket — Grocery Inventory Manager</footer>
   </body>
 </html>
