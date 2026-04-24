@@ -1,3 +1,5 @@
+# replace templates/edit.html with this clean version cat > templates/edit.html
+<< 'EOF'
 <!doctype html>
 <html lang="en">
   <head>
@@ -157,7 +159,6 @@
         border-color: var(--orange);
         background: var(--orange-light);
         color: var(--dark);
-        box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.12);
       }
       .cat-icon {
         font-size: 22px;
@@ -181,7 +182,6 @@
       .btn-submit:hover {
         background: #b45309;
         transform: translateY(-1px);
-        box-shadow: 0 6px 20px rgba(217, 119, 6, 0.35);
       }
     </style>
   </head>
@@ -364,3 +364,5 @@
     </div>
   </body>
 </html>
+EOF # copy into container docker cp templates/edit.html
+grocery_flask:/app/templates/edit.html
